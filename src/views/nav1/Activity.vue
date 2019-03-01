@@ -8,21 +8,6 @@
         </el-form-item>
         <el-form-item>
           <el-select
-            v-model="filters.priority"
-            @change="getPriorityList"
-            style="width:150px"
-            placeholder="优先级"
-          >
-            <el-option
-              v-for="item in priorityList"
-              :key="item.code"
-              :value="item.code"
-              :label="item.name"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-select
             v-model="filters.category"
             @change="getCategory"
             style="width:80px"
@@ -36,6 +21,22 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <el-select
+            v-model="filters.priority"
+            @change="getPriorityList"
+            style="width:150px"
+            placeholder="优先级"
+          >
+            <el-option
+              v-for="item in priorityList"
+              :key="item.code"
+              :value="item.code"
+              :label="item.name"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        
         <el-form-item>
           <el-date-picker
             v-model="filters.createDay"
@@ -62,19 +63,20 @@
     >
       <el-table-column prop="name" label="任务" min-width="25%"></el-table-column>
       <el-table-column
-        prop="priority"
-        label="优先级"
-        sortable
-        min-width="10%"
-        :formatter="formatPriority"
-      ></el-table-column>
-      <el-table-column
         prop="category"
         label="类别"
         min-width="10%"
         sortable
         :formatter="formatCategory"
       ></el-table-column>
+      <el-table-column
+        prop="priority"
+        label="优先级"
+        sortable
+        min-width="10%"
+        :formatter="formatPriority"
+      ></el-table-column>
+      
       <el-table-column prop="createDay" label="日期" min-width="10%" sortable></el-table-column>
       <el-table-column prop="startTime" label="开始" min-width="10%" sortable></el-table-column>
       <el-table-column prop="endTime" label="结束" min-width="10%" sortable></el-table-column>
@@ -100,19 +102,9 @@
 
     <!--编辑界面-->
     <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
-      <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+      <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
         <el-form-item label="任务:" prop="name">
           <el-input v-model="editForm.name" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="优先级" prop="priority">
-          <el-select v-model="editForm.priority" @change="getPriorityList" placeholder="优先级">
-            <el-option
-              v-for="item in priorityList"
-              :key="item.code"
-              :value="item.code"
-              :label="item.name"
-            ></el-option>
-          </el-select>
         </el-form-item>
         <el-form-item label="类别:" prop="category">
           <el-select
@@ -129,6 +121,16 @@
             ></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="优先级" prop="priority">
+          <el-select v-model="editForm.priority" @change="getPriorityList" placeholder="优先级">
+            <el-option
+              v-for="item in priorityList"
+              :key="item.code"
+              :value="item.code"
+              :label="item.name"
+            ></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="日期:" prop="createDay">
           <el-date-picker
             v-model="editForm.createDay"
@@ -137,11 +139,12 @@
             placeholder="日期"
           ></el-date-picker>
         </el-form-item>
-        <el-form-item label="开始时间:" prop="startTime">
+        <el-form-item label="开始时间:" prop="startTime" >
           <el-time-select
             v-model="editForm.startTime"
             type="time"
             value-format="HH:mm"
+            placeholder="开始时间"
             format="HH:mm"
           ></el-time-select>
         </el-form-item>
@@ -186,28 +189,6 @@
           style="width: 100%;"
         >
           <el-table-column label="#" type="index" width="60" align="center"></el-table-column>
-          <el-table-column label="优先级" width="140px">
-            <template slot-scope="scope">
-              <el-form-item
-                :prop="'data.'+ scope.$index +'.priority'"
-                :rules="addFormRules.priority"
-              >
-                <el-select
-                  v-model="scope.row.priority"
-                  @change="getPriorityList"
-                  placeholder="优先级"
-                  style="margin-top:20px;"
-                >
-                  <el-option
-                    v-for="item in priorityList"
-                    :key="item.code"
-                    :value="item.code"
-                    :label="item.name"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </template>
-          </el-table-column>
           <el-table-column label="类别" width="115px">
             <template slot-scope="scope">
               <el-form-item
@@ -222,6 +203,28 @@
                 >
                   <el-option
                     v-for="item in categoryList"
+                    :key="item.code"
+                    :value="item.code"
+                    :label="item.name"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+            </template>
+          </el-table-column>
+          <el-table-column label="优先级" width="140px">
+            <template slot-scope="scope">
+              <el-form-item
+                :prop="'data.'+ scope.$index +'.priority'"
+                :rules="addFormRules.priority"
+              >
+                <el-select
+                  v-model="scope.row.priority"
+                  @change="getPriorityList"
+                  placeholder="优先级"
+                  style="margin-top:20px;"
+                >
+                  <el-option
+                    v-for="item in priorityList"
                     :key="item.code"
                     :value="item.code"
                     :label="item.name"
