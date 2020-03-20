@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let base = '/api';
-
+/*日程管理接口*/
 export const getActicityListPage = params => {
     return axios.post(`${base}/myoffice/activity/findPage/${params.pageSize}/${params.pageNo}`, params).then(res => res.data);
 };
@@ -20,7 +20,10 @@ export const  updateActivity = params => {
 export const getCategoryList = params => {
     return axios.post(`${base}/myoffice/category/findAll`, params).then(res => res.data);
 };
-
+/*图书管理接口*/
+export const getBookListPage = params => {
+    return axios.post(`${base}/myoffice/book/findPage/${params.pageSize}/${params.pageNo}`, params).then(res => res.data);
+};
 
 
 export const requestLogin = params => {

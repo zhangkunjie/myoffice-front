@@ -3,6 +3,7 @@ import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
 import Activity from './views/nav1/Activity.vue'
+import Book from './views/nav1/Book.vue'
 import Form from './views/nav1/Form.vue'
 import user from './views/nav1/user.vue'
 import Page5 from './views/nav2/Page5.vue'
@@ -32,8 +33,10 @@ let routes = [
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/activity', component: Activity, name: '日程管理' },
+            {path: '/activity', component: Book, name: '图书管理' }
         ]
-    },
+    },  
+
     {
         path: '/',
         component: Home,
