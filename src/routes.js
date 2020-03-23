@@ -33,7 +33,7 @@ let routes = [
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/activity', component: Activity, name: '日程管理' },
-            {path: '/activity', component: Book, name: '图书管理' }
+            {path: '/book', component: Book, name: '图书管理' }
         ]
     },  
 
