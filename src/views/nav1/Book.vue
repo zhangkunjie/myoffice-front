@@ -46,6 +46,7 @@
           ></el-date-picker>
         </el-form-item>
         <el-form-item>
+          <el-button type="primary" size="small" v-on:click="getBooks">查询</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="small" @click="handleAdd">新增</el-button>
@@ -566,7 +567,7 @@ export default {
     }
   },
   mounted() {
-    this.getBookListPage();
+    this.getBooks();
   }
 };
 </script>
