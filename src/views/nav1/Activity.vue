@@ -81,7 +81,7 @@
       <el-table-column prop="startTime" label="开始" min-width="10%" sortable></el-table-column>
       <el-table-column prop="endTime" label="结束" min-width="10%" sortable></el-table-column>
       <el-table-column prop="implementRate" label="执行率" min-width="10%" sortable></el-table-column>
-      <el-table-column min-width="15%">
+      <el-table-column min-width="15%" label="操作">
         <template scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
           <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
@@ -329,17 +329,17 @@ export default {
       activityDataList: [],
       priorityList: [
         { code: "", name: "全部" },
-        { code: 1, name: "重要紧急" },
-        { code: 2, name: "重要不紧急" },
-        { code: 3, name: "不重要紧急" },
-        { code: 4, name: "不重要不紧急" }
+        { code: '1', name: "重要紧急" },
+        { code: '2', name: "重要不紧急" },
+        { code: '3', name: "不重要紧急" },
+        { code: '4', name: "不重要不紧急" }
       ],
       priorityMap: {
         "": "全部",
-        1: "重要紧急",
-        2: "重要不紧急",
-        3: "不重要紧急",
-        4: "不重要不紧急"
+        '1': "重要紧急",
+        '2': "重要不紧急",
+        '3': "不重要紧急",
+        '4': "不重要不紧急"
       },
       categoryList: [],
       categoryMap: {},
@@ -400,7 +400,9 @@ export default {
   },
   methods: {
     //时间选择限制
-    getPriorityList() {},
+    getPriorityList() {
+    
+    },
     getCategory() {},
     selectRow() {},
     //优先级转换
@@ -418,7 +420,7 @@ export default {
     //获取日活动列表
     getActivities() {
       //获取类别码表数据
-      let params = {};
+      let params = {"categoryId":1};
       getCategoryList(params).then(res => {
         this.categoryList = res.pairs.data;
         let total_item = { code: "", name: "全部" };

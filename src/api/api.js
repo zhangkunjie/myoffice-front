@@ -21,8 +21,22 @@ export const getCategoryList = params => {
     return axios.post(`${base}/myoffice/category/findAll`, params).then(res => res.data);
 };
 /*图书管理接口*/
+//图书查询接口
 export const getBookListPage = params => {
     return axios.post(`${base}/myoffice/book/findPage/${params.pageSize}/${params.pageNo}`, params).then(res => res.data);
+};
+//图书新增接口
+export const addBook = params => {
+    return axios.post(`${base}/myoffice/book/insert`, params).then(res => res.data);
+};
+//根据id查询图书接口
+//图书编辑接口
+export const  updateBook = params => {
+    return axios.post(`${base}/myoffice/book/update`, params).then(res => res.data);
+};
+//图书删除接口
+export const deleteBook= params => {
+    return axios.post(`${base}/myoffice/book/delete`, params).then(res => res.data);
 };
 
 
