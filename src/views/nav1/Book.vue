@@ -94,14 +94,20 @@
     <!--编辑界面-->
     <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="100px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="任务:" prop="name">
+      <el-form-item label="ISBN:" prop="isbn"  style="width:60%" >
+          <el-input v-model="editForm.isbn" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="书名:" prop="name"  style="width:60%" >
           <el-input v-model="editForm.name" auto-complete="off"></el-input>
+        </el-form-item>
+         <el-form-item label="作者:" prop="author"  style="width:60%" >
+          <el-input v-model="editForm.author" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="类别:" prop="category">
           <el-select
             v-model="editForm.category"
             @change="getCategory"
-            style="width:80px"
+            style="width:40%"
             placeholder="类别:"
           >
             <el-option
@@ -112,36 +118,25 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="日期:" prop="createDay">
-          <el-date-picker
-            v-model="editForm.createDay"
-            type="date"
-            format="yyyy-MM-dd"
-            placeholder="日期"
-          ></el-date-picker>
+        <el-form-item label="状态:" prop="status" v-model="editForm.status">
+          <el-select
+            v-model="editForm.status"
+            style="width:40%"
+            placeholder="状态:"
+          >
+            <el-option
+              v-for="item in statusList"
+              :key="item.code"
+              :value="item.code"
+              :label="item.name"
+            ></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="开始时间:" prop="startTime" >
-          <el-time-select
-            v-model="editForm.startTime"
-            type="time"
-            value-format="HH:mm"
-            placeholder="开始时间"
-            format="HH:mm"
-          ></el-time-select>
+        <el-form-item label="页数:" prop="page"  style="width:30%" >
+          <el-input v-model="editForm.page" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="结束时间:" prop="endTime">
-          <el-time-select
-            v-model="editForm.endTime"
-            type="time"
-            value-format="HH:mm"
-            format="HH:mm"
-          ></el-time-select>
-        </el-form-item>
-        <el-form-item label="执行率:" prop="implementRate">
-          <el-input v-model="editForm.implementRate" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="备注:" prop="remark">
-          <el-input v-model="editForm.remark" auto-complete="off" :rows="2"></el-input>
+        <el-form-item label="读书笔记:" prop="note">
+          <el-input type="textarea" v-model="editForm.note" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -199,7 +194,7 @@
           <el-input v-model="addForm.page" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="读书笔记:" prop="note">
-          <el-input type="textarea" v-model="addForm.remark" auto-complete="off"></el-input>
+          <el-input type="textarea" v-model="addForm.note" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -414,7 +409,7 @@ export default {
             this.editLoading = true;
             //NProgress.start();
             let para = Object.assign({}, this.editForm);
-            updateActivity(para).then(res => {
+            updateBook(para).then(res => {
               this.editLoading = false;
               //NProgress.done();
               this.$message({
@@ -423,7 +418,7 @@ export default {
               });
               this.$refs["editForm"].resetFields();
               this.editFormVisible = false;
-              this.getActivities();
+              this.getBooks();
             });
           });
         }
