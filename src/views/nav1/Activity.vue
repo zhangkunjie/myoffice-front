@@ -441,7 +441,7 @@ export default {
         category: this.filters.category,
         createDay: filter_createday,
         pageNo: this.page,
-        pageSize: 15
+        pageSize: 10
       };
       this.listLoading = true;
       //NProgress.start();
