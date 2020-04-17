@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 let base = '/api';
 /*日程管理接口*/
 export const getActicityListPage = params => {
