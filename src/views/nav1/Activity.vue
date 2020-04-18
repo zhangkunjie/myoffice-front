@@ -329,17 +329,17 @@ export default {
       activityDataList: [],
       priorityList: [
         { code: "", name: "全部" },
-        { code: '1', name: "重要紧急" },
-        { code: '2', name: "重要不紧急" },
-        { code: '3', name: "不重要紧急" },
-        { code: '4', name: "不重要不紧急" }
+        { code: 1, name: "重要紧急" },
+        { code: 2, name: "重要不紧急" },
+        { code: 3, name: "不重要紧急" },
+        { code: 4, name: "不重要不紧急" }
       ],
       priorityMap: {
         "": "全部",
-        '1': "重要紧急",
-        '2': "重要不紧急",
-        '3': "不重要紧急",
-        '4': "不重要不紧急"
+        1: "重要紧急",
+        2: "重要不紧急",
+        3: "不重要紧急",
+        4: "不重要不紧急"
       },
       categoryList: [],
       categoryMap: {},
