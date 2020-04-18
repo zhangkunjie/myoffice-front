@@ -61,7 +61,7 @@
       @selection-change="selsChange"
       style="width: 100%;"
     >
-      <el-table-column prop="name" label="任务" min-width="25%"></el-table-column>
+      <el-table-column prop="name" label="任务" min-width="22%"></el-table-column>
       <el-table-column
         prop="category"
         label="类别"
@@ -73,7 +73,7 @@
         prop="priority"
         label="优先级"
         sortable
-        min-width="10%"
+        min-width="13%"
         :formatter="formatPriority"
       ></el-table-column>
       
@@ -240,7 +240,7 @@
               </el-form-item>
             </template>
           </el-table-column>
-          <el-table-column label="日期" style="width:180px">
+          <el-table-column label="日期" style="width:200px">
             <template slot-scope="scope">
               <el-form-item
                 :prop="'data.'+ scope.$index +'.createDay'"
@@ -252,8 +252,9 @@
                   type="date"
                   :picker-options="pickerCreataDay"
                   format="yyyy-MM-dd"
+                  value-format="yyyy-MM-dd"
                   placeholder="日期"
-                  style="margin-top:20px;width:120px"
+                  style="margin-top:20px;width:130px"
                 ></el-date-picker>
               </el-form-item>
             </template>
@@ -267,9 +268,9 @@
                 <el-time-picker
                   v-model="scope.row.startTime"
                   type="time"
-                  value-format="HH:mm:ss"
-                  format="HH:mm:ss"
-                  style="margin-top:20px;;width:100px"
+                  value-format="HH:mm"
+                  format="HH:mm"
+                  style="margin-top:20px;;width:80px"
                 ></el-time-picker>
               </el-form-item>
             </template>
@@ -280,9 +281,9 @@
                 <el-time-picker
                   v-model="scope.row.endTime"
                   type="time"
-                  value-format="HH:mm:ss"
-                  format="HH:mm:ss"
-                  style="margin-top:20px;;width:100px"
+                  value-format="HH:mm"
+                  format="HH:mm"
+                  style="margin-top:20px;;width:80px"
                 ></el-time-picker>
               </el-form-item>
             </template>
@@ -511,11 +512,12 @@ export default {
       this.$refs.addForm.validate(valid => {
         if (valid) {
           let para = Object.assign({}, this.addData);
-          let params = [];
-          for (let i = 0; i < Object.keys(para).length; i++) {
-            para[i].startTime = moment(para[i].startTime).format("HH:mm:ss");
-            para[i].endTime = moment(para[i].endTime).format("HH:mm:ss");
-            params[i] = para[i];
+          let params =[];
+          for (var i = 0; i < Object.keys(para).length; i++) {
+            params[i]=JSON.parse(JSON.stringify(para[i]));
+            params[i].createDay= moment(params[i].createDay).format("YYYY-MM-DD");
+            params[i].startTime = moment(params[i].startTime).format("HH:mm:ss");
+            params[i].endTime = moment(params[i].endTime).format("HH:mm:ss");
           }
           if (params.length == 0) {
             this.$message({
